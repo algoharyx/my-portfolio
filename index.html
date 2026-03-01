@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mohamed Nabil Algohary | Staff Engineer</title>
+  <meta name="description" content="Mohamed Nabil Algohary - Backend-Focused Full-Stack Developer, System Design Enthusiast & Competitive Programmer.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            charcoal: {
+              950: '#050505',
+              900: '#0a0a0a',
+              800: '#121212',
+              700: '#1a1a1a',
+              600: '#2a2a2a',
+            },
+            accent: {
+              DEFAULT: '#00ffcc', // Cyber teal
+              muted: 'rgba(0, 255, 204, 0.15)',
+              hover: '#00ccaa'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            mono: ['"Fira Code"', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* Dynamic Variables - Controlled by JS Engine */
+      --bg-main: #0f172a;
+      --bg-card: rgba(30, 41, 59, 0.5);
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --accent: #38bdf8;
+      --border: rgba(255, 255, 255, 0.05);
+      --glow-color: rgba(56, 189, 248, 0.15);
+    }
+
+    body {
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      transition: background-color 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      font-feature-settings: "cv02", "cv03", "cv04", "ss01";
+    }
+
+    /* Atmospheric Background Glow */
+    .atmosphere-glow {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at 50% -20%, var(--glow-color), transparent 70%);
+      pointer-events: none;
+      z-index: -1;
+      transition: background 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    ::selection {
+      background: var(--accent);
+      color: var(--bg-main);
+    }
+
+    /* Global Typography Transitions */
+    h1, h2, h3, p, span, a, div, section {
+      transition: color 0.6s ease, border-color 0.6s ease, background-color 0.6s ease;
+    }
+
+    /* Component Overrides */
+    .ghostty-window {
+      background: var(--bg-card);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid var(--border);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    }
+
+    .ghostty-header {
+      background: rgba(255, 255, 255, 0.03);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .project-card, .spotlight-card, article {
+      background-color: var(--bg-card) !important;
+      border: 1px solid var(--border) !important;
+      backdrop-filter: blur(12px);
+    }
+
+    .text-white, .font-bold { color: var(--text-main) !important; }
+    .text-gray-400, .text-gray-500, .text-gray-600 { color: var(--text-muted) !important; }
+    .text-accent, .accent, .border-accent { color: var(--accent) !important; border-color: var(--accent) !important; }
+    .bg-accent { background-color: var(--accent) !important; color: var(--bg-main) !important; }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--text-muted); border-radius: 10px; opacity: 0.2; }
+
+    /* Spotlight Card Hover Effect */
+    .spotlight-card::before {
+      background: radial-gradient(
+        800px circle at var(--mouse-x) var(--mouse-y), 
+        var(--glow-color),
+        transparent 40%
+      );
+    }
+
+    /* Reveal Animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body class="font-sans antialiased min-h-screen flex flex-col relative overflow-x-hidden">
+  
+  <!-- Atmosphere Engine Layer -->
+  <div class="atmosphere-glow"></div>
+
+  <!-- Navigation -->
+  <header class="fixed top-0 w-full z-50 backdrop-blur-md border-b border-white/5 transition-all duration-700" style="background: rgba(var(--bg-rgb), 0.7)">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+      <a href="#" class="font-mono font-bold text-xl tracking-tight flex items-center gap-2">
+        <span>Algohary</span>
+        <span class="text-accent">_</span>
+      </a>
+      
+      <nav class="hidden md:flex gap-8 items-center text-sm font-medium text-gray-400">
+        <a href="#about" class="hover:text-white transition-colors">~/about</a>
+        <a href="#projects" class="hover:text-white transition-colors">~/work</a>
+        <a href="#articles" class="hover:text-white transition-colors">~/articles</a>
+        <a href="#milestones" class="hover:text-white transition-colors">~/milestones</a>
+      </nav>
+      
+      <a href="cv/Mohamed_Nabil_Algohary_CV.pdf" class="hidden md:flex text-sm font-mono border border-accent/30 text-accent hover:bg-accent/10 px-4 py-2 rounded transition-all" aria-label="Download Resume PDF">
+        $ get cv.pdf
+      </a>
+      
+      <!-- Mobile Menu Button -->
+      <button class="md:hidden text-gray-400 hover:text-white" aria-label="Open Menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="flex-grow pt-28">
+    
+    <!-- Hero / Ghostty Terminal Section -->
+    <section id="about" class="max-w-6xl mx-auto px-6 py-16 md:py-24 flex flex-col items-center">
+      <div class="w-full max-w-4xl ghostty-window rounded-xl overflow-hidden shadow-2xl reveal">
+        <!-- Terminal Header -->
+        <div class="ghostty-header px-4 py-3 flex items-center justify-between">
+          <div class="flex gap-2">
+            <div class="w-3 h-3 rounded-full bg-[#ff5f56]"></div>
+            <div class="w-3 h-3 rounded-full bg-[#ffbd2e]"></div>
+            <div class="w-3 h-3 rounded-full bg-[#27c93f]"></div>
+          </div>
+          <div class="text-xs font-mono text-gray-500">algohary@archlinux: ~</div>
+          <div class="w-10"></div> <!-- Spacer for centering -->
+        </div>
+        
+        <!-- Terminal Body -->
+        <div id="terminal-body" class="p-6 md:p-8 font-mono text-sm md:text-base leading-relaxed text-gray-300 max-h-[450px] overflow-y-auto scroll-smooth">
+          <div class="mb-4">
+            <span class="text-accent">algohary@archlinux</span><span class="text-white">:</span><span class="text-blue-400">~</span>$ whoami
+          </div>
+          <div class="mb-6 text-white font-bold text-xl md:text-2xl">
+            Mohamed Nabil Algohary
+          </div>
+          
+          <div class="mb-4">
+            <span class="text-accent">algohary@archlinux</span><span class="text-white">:</span><span class="text-blue-400">~</span>$ cat role.txt
+          </div>
+          <div class="mb-6 text-gray-400 border-l-2 border-white/10 pl-3">
+            > Engineering Leader & UI/UX Advocate<br>
+            > Bridging scalable backends with premium frontends<br>
+            > Focused on architecture, performance, and developer experience
+          </div>
+          
+          <div class="mb-4">
+            <span class="text-accent">algohary@archlinux</span><span class="text-white">:</span><span class="text-blue-400">~</span>$ neofetch --stack
+          </div>
+          <div class="mb-6 grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="flex items-center gap-2"><span class="text-green-500">■</span> Node.js</div>
+            <div class="flex items-center gap-2"><span class="text-blue-500">■</span> React.js</div>
+            <div class="flex items-center gap-2"><span class="text-yellow-500">■</span> Express.js</div>
+            <div class="flex items-center gap-2"><span class="text-green-600">■</span> MongoDB</div>
+            <div class="flex items-center gap-2"><span class="text-blue-600">■</span> C++</div>
+            <div class="flex items-center gap-2"><span class="text-gray-400">■</span> Arch Linux</div>
+          </div>
+
+          <div id="terminal-output"></div>
+
+          <div class="flex items-center gap-2 mt-4">
+            <span class="text-accent">algohary@archlinux</span><span class="text-white">:</span><span class="text-blue-400">~</span>$ 
+            <input type="text" id="terminal-input" class="bg-transparent border-none outline-none text-white font-mono flex-grow focus:ring-0 w-full placeholder-gray-600" autocomplete="off" autofocus placeholder="Type 'help' to see interactive commands...">
+          </div>
+        </div>
+      </div>
+      
+      <!-- Socials / Quick Links -->
+      <div class="mt-12 flex flex-wrap justify-center gap-6 items-center reveal">
+        <a href="https://github.com/algoharyx" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-colors flex items-center gap-2 group">
+          <svg class="w-6 h-6 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"></path></svg>
+          <span class="font-mono text-sm">algoharyx</span>
+        </a>
+        <a href="https://www.linkedin.com/in/algoharyx/" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-accent transition-colors flex items-center gap-2 group">
+          <svg class="w-6 h-6 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"></path></svg>
+          <span class="font-mono text-sm">algoharyx</span>
+        </a>
+        <a href="https://x.com/xalgoharyx" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-colors flex items-center gap-2 group">
+          <svg class="w-5 h-5 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>
+          <span class="font-mono text-sm">xalgoharyx</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- Featured Projects -->
+    <section id="projects" class="max-w-6xl mx-auto px-6 py-20 reveal">
+      <div class="flex items-center gap-4 mb-12">
+        <h2 class="text-2xl font-bold text-white">Featured Architecture</h2>
+        <div class="h-[1px] flex-grow bg-white/10"></div>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        
+        <!-- Project 1: SprintX -->
+        <article class="project-card spotlight-card border border-white/5 rounded-xl overflow-hidden flex flex-col h-full reveal" style="transition-delay: 100ms;">
+          <div class="p-8 flex-grow">
+            <div class="flex justify-between items-start mb-6">
+              <div class="w-12 h-12 rounded bg-charcoal-700 flex items-center justify-center border border-white/10 shadow-lg">
+                <svg class="w-6 h-6 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+              </div>
+              <a href="#" class="text-gray-400 hover:text-accent transition-colors" aria-label="View SprintX Architecture">
+                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+              </a>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-2">SprintX</h3>
+            <p class="text-gray-400 text-sm leading-relaxed mb-4">
+              A high-performance productivity application architecture engineered for blazing-fast task management.
+            </p>
+            <ul class="text-xs text-gray-400 mt-4 space-y-2 border-l border-white/10 pl-4 mb-6">
+              <li><strong class="text-white">Impact:</strong> Architected a real-time task engine supporting <span class="text-accent">5k+ concurrent connections</span>.</li>
+              <li><strong class="text-white">Optimization:</strong> Reduced database query latency by 40% via Redis caching layer.</li>
+            </ul>
+          </div>
+          <div class="px-8 py-5 border-t border-white/5 bg-charcoal-900/50 mt-auto backdrop-blur-sm">
+            <ul class="flex flex-wrap gap-3 font-mono text-xs text-gray-500">
+              <li class="px-2 py-1 bg-white/5 rounded">Node.js</li>
+              <li class="px-2 py-1 bg-white/5 rounded">WebSockets</li>
+              <li class="px-2 py-1 bg-white/5 rounded">Redis</li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- Project 2: GMATE RESUME -->
+        <article class="project-card spotlight-card border border-white/5 rounded-xl overflow-hidden flex flex-col h-full reveal" style="transition-delay: 200ms;">
+          <div class="p-8 flex-grow">
+            <div class="flex justify-between items-start mb-6">
+              <div class="w-12 h-12 rounded bg-charcoal-700 flex items-center justify-center border border-white/10 shadow-lg">
+                <svg class="w-6 h-6 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+              </div>
+              <a href="#" class="text-gray-400 hover:text-accent transition-colors" aria-label="View GMATE RESUME Project">
+                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+              </a>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-2">GMATE RESUME</h3>
+            <p class="text-gray-400 text-sm leading-relaxed mb-4">
+              An AI-powered career platform providing intelligent resume parsing and structured ATS insights.
+            </p>
+            <ul class="text-xs text-gray-400 mt-4 space-y-2 border-l border-white/10 pl-4 mb-6">
+              <li><strong class="text-white">Impact:</strong> Integrated NLP models reducing manual data entry time by <span class="text-accent">85%</span>.</li>
+              <li><strong class="text-white">Optimization:</strong> Engineered a PDF generation microservice resolving requests in under 2s.</li>
+            </ul>
+          </div>
+          <div class="px-8 py-5 border-t border-white/5 bg-charcoal-900/50 mt-auto backdrop-blur-sm">
+            <ul class="flex flex-wrap gap-3 font-mono text-xs text-gray-500">
+              <li class="px-2 py-1 bg-white/5 rounded">Express.js</li>
+              <li class="px-2 py-1 bg-white/5 rounded">React</li>
+              <li class="px-2 py-1 bg-white/5 rounded">NLP API</li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- Project 3: Osta / Nawelny -->
+        <article class="project-card spotlight-card border border-white/5 rounded-xl overflow-hidden flex flex-col h-full reveal" style="transition-delay: 300ms;">
+          <div class="p-8 flex-grow">
+            <div class="flex justify-between items-start mb-6">
+              <div class="w-12 h-12 rounded bg-charcoal-700 flex items-center justify-center border border-white/10 shadow-lg">
+                <svg class="w-6 h-6 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+              </div>
+              <a href="#" class="text-gray-400 hover:text-accent transition-colors" aria-label="View Osta / Nawelny Project">
+                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+              </a>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-2">Osta / Nawelny</h3>
+            <p class="text-gray-400 text-sm leading-relaxed mb-4">
+              A secure, highly-scalable mobile payment solution crafted for seamless transactions in public transit.
+            </p>
+            <ul class="text-xs text-gray-400 mt-4 space-y-2 border-l border-white/10 pl-4 mb-6">
+              <li><strong class="text-white">Impact:</strong> Architected infrastructure handling <span class="text-accent">10k+ daily transactions</span> with 99.99% uptime.</li>
+              <li><strong class="text-white">Optimization:</strong> Implemented strict idempotent API endpoints eliminating duplicate charges.</li>
+            </ul>
+          </div>
+          <div class="px-8 py-5 border-t border-white/5 bg-charcoal-900/50 mt-auto backdrop-blur-sm">
+            <ul class="flex flex-wrap gap-3 font-mono text-xs text-gray-500">
+              <li class="px-2 py-1 bg-white/5 rounded">Node.js</li>
+              <li class="px-2 py-1 bg-white/5 rounded">MongoDB</li>
+              <li class="px-2 py-1 bg-white/5 rounded">Idempotency</li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- Project 4: DevMinds Academy -->
+        <article class="project-card spotlight-card border border-white/5 rounded-xl overflow-hidden flex flex-col h-full reveal" style="transition-delay: 400ms;">
+          <div class="p-8 flex-grow">
+            <div class="flex justify-between items-start mb-6">
+              <div class="w-12 h-12 rounded bg-charcoal-700 flex items-center justify-center border border-white/10 shadow-lg">
+                <svg class="w-6 h-6 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M12 14l9-5-9-5-9 5 9 5z"></path><path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"></path></svg>
+              </div>
+              <a href="#" class="text-gray-400 hover:text-accent transition-colors" aria-label="View DevMinds Academy Project">
+                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+              </a>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-2">DevMinds Academy</h3>
+            <p class="text-gray-400 text-sm leading-relaxed mb-4">
+              An enterprise e-learning architecture supporting scalable streaming and complex instructor analytics.
+            </p>
+            <ul class="text-xs text-gray-400 mt-4 space-y-2 border-l border-white/10 pl-4 mb-6">
+              <li><strong class="text-white">Impact:</strong> Designed scalable NoSQL schemas handling <span class="text-accent">thousands of concurrent quizzes</span>.</li>
+              <li><strong class="text-white">Optimization:</strong> Optimized video chunking strategy reducing buffering events by 60%.</li>
+            </ul>
+          </div>
+          <div class="px-8 py-5 border-t border-white/5 bg-charcoal-900/50 mt-auto backdrop-blur-sm">
+            <ul class="flex flex-wrap gap-3 font-mono text-xs text-gray-500">
+              <li class="px-2 py-1 bg-white/5 rounded">MERN</li>
+              <li class="px-2 py-1 bg-white/5 rounded">System Design</li>
+              <li class="px-2 py-1 bg-white/5 rounded">Streaming</li>
+            </ul>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- Technical Articles -->
+    <section id="articles" class="max-w-6xl mx-auto px-6 py-20 reveal">
+      <div class="flex items-center gap-4 mb-12">
+        <h2 class="text-2xl font-bold text-white">Engineering Logs</h2>
+        <div class="h-[1px] flex-grow bg-white/10"></div>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <!-- Article 1: System Design -->
+        <article class="project-card spotlight-card border border-white/5 rounded-xl overflow-hidden flex flex-col h-full reveal" style="transition-delay: 100ms;">
+          <div class="p-8 flex-grow">
+            <div class="flex justify-between items-start mb-6">
+              <div class="w-12 h-12 rounded bg-charcoal-700 flex items-center justify-center border border-white/10">
+                <svg class="w-6 h-6 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path></svg>
+              </div>
+              <a href="#" class="text-gray-400 hover:text-accent transition-colors" aria-label="Read Article">
+                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+              </a>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-3">Why I Chose Node.js Over Go for SprintX</h3>
+            <p class="text-gray-400 text-sm leading-relaxed mb-6">
+              An architectural deep dive into event loops, V8 engine optimizations, and balancing I/O concurrency versus compute.
+            </p>
+          </div>
+          <div class="px-8 py-5 border-t border-white/5 bg-charcoal-900/50 mt-auto">
+            <span class="font-mono text-xs text-accent bg-accent/10 px-2 py-1 rounded">Architecture</span>
+          </div>
+        </article>
+
+        <!-- Article 2: Backend -->
+        <article class="project-card spotlight-card border border-white/5 rounded-xl overflow-hidden flex flex-col h-full reveal" style="transition-delay: 200ms;">
+          <div class="p-8 flex-grow">
+            <div class="flex justify-between items-start mb-6">
+              <div class="w-12 h-12 rounded bg-charcoal-700 flex items-center justify-center border border-white/10">
+                <svg class="w-6 h-6 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"></path></svg>
+              </div>
+              <a href="#" class="text-gray-400 hover:text-accent transition-colors" aria-label="Read Article">
+                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+              </a>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-3">Idempotency in Payment APIs</h3>
+            <p class="text-gray-400 text-sm leading-relaxed mb-6">
+              Lessons learned from building the Osta/Nawelny gateway: how to guarantee exactly-once execution in distributed systems.
+            </p>
+          </div>
+          <div class="px-8 py-5 border-t border-white/5 bg-charcoal-900/50 mt-auto">
+            <span class="font-mono text-xs text-accent bg-accent/10 px-2 py-1 rounded">Backend</span>
+          </div>
+        </article>
+
+        <!-- Article 3: Arch Linux -->
+        <article class="project-card spotlight-card border border-white/5 rounded-xl overflow-hidden flex flex-col h-full reveal" style="transition-delay: 300ms;">
+          <div class="p-8 flex-grow">
+            <div class="flex justify-between items-start mb-6">
+              <div class="w-12 h-12 rounded bg-charcoal-700 flex items-center justify-center border border-white/10">
+                <svg class="w-6 h-6 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+              </div>
+              <a href="#" class="text-gray-400 hover:text-accent transition-colors" aria-label="Read Article">
+                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+              </a>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-3">Hyprland & Arch: The Developer Workflow</h3>
+            <p class="text-gray-400 text-sm leading-relaxed mb-6">
+              Why an aggressively minimalist, keyboard-driven environment drastically improves deep-work capacity. Includes dotfiles.
+            </p>
+          </div>
+          <div class="px-8 py-5 border-t border-white/5 bg-charcoal-900/50 mt-auto">
+            <span class="font-mono text-xs text-gray-500 bg-white/5 px-2 py-1 rounded">DevOps</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Milestones -->
+    <section id="milestones" class="max-w-4xl mx-auto px-6 py-20 reveal">
+      <div class="flex items-center gap-4 mb-12">
+        <h2 class="text-2xl font-bold text-white">Milestones</h2>
+        <div class="h-[1px] flex-grow bg-white/10"></div>
+      </div>
+
+      <div class="relative border-l border-white/10 ml-4 md:ml-0 md:pl-8 space-y-12">
+        
+        <!-- Milestone 1 -->
+        <div class="relative pl-8 md:pl-0 reveal" style="transition-delay: 100ms;">
+          <div class="absolute w-3 h-3 bg-accent rounded-full -left-[43px] md:-left-[38px] top-1.5 ring-4 ring-charcoal-900 shadow-[0_0_10px_rgba(0,255,204,0.5)]"></div>
+          <div class="flex flex-col md:flex-row md:items-baseline gap-2 md:gap-6 mb-2">
+            <h3 class="text-lg font-bold text-white">NTI Open Source Program</h3>
+            <span class="font-mono text-xs text-accent bg-accent/10 px-2 py-1 rounded border border-accent/20">HireReady Trainee</span>
+          </div>
+          <p class="text-gray-400 text-sm leading-relaxed">
+            Engaged in advanced open-source contributions, mastering scalable backend architecture, and collaborating on high-impact projects. Focus on rigorous code quality and system performance.
+          </p>
+        </div>
+
+        <!-- Milestone 2 -->
+        <div class="relative pl-8 md:pl-0 reveal" style="transition-delay: 200ms;">
+          <div class="absolute w-3 h-3 bg-charcoal-600 rounded-full -left-[43px] md:-left-[38px] top-1.5 ring-4 ring-charcoal-900 border border-white/20"></div>
+          <div class="flex flex-col md:flex-row md:items-baseline gap-2 md:gap-6 mb-2">
+            <h3 class="text-lg font-bold text-white">InnovEgypt</h3>
+            <span class="font-mono text-xs text-gray-400 bg-white/5 px-2 py-1 rounded">Innovation & Tech</span>
+          </div>
+          <p class="text-gray-400 text-sm leading-relaxed">
+            Participated in entrepreneurship and technological innovation challenges, designing robust business-logic prototypes and leading technical strategy discussions.
+          </p>
+        </div>
+
+        <!-- Milestone 3 -->
+        <div class="relative pl-8 md:pl-0 reveal" style="transition-delay: 300ms;">
+          <div class="absolute w-3 h-3 bg-charcoal-600 rounded-full -left-[43px] md:-left-[38px] top-1.5 ring-4 ring-charcoal-900 border border-white/20"></div>
+          <div class="flex flex-col md:flex-row md:items-baseline gap-2 md:gap-6 mb-2">
+            <h3 class="text-lg font-bold text-white">HCCDA – Tech Essentials</h3>
+            <span class="font-mono text-xs text-gray-400 bg-white/5 px-2 py-1 rounded">Certification</span>
+          </div>
+          <p class="text-gray-400 text-sm leading-relaxed">
+            Achieved Huawei Certified ICT Associate core competencies, reinforcing deep knowledge in networking, cloud fundamentals, and essential infrastructure operations.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="max-w-4xl mx-auto px-6 py-32 text-center reveal">
+      <h2 class="font-mono text-accent mb-4">03. What's Next?</h2>
+      <h3 class="text-4xl md:text-5xl font-bold text-white mb-6">Get In Touch</h3>
+      <p class="text-gray-400 max-w-lg mx-auto mb-10 leading-relaxed">
+        I am currently open to new opportunities, particularly in backend systems, system design, and competitive engineering roles. Whether you have a question or just want to say hi, my inbox is always open.
+      </p>
+      <a href="mailto:algoharyx@gmail.com" class="inline-block px-8 py-4 border border-accent text-accent font-mono rounded hover:bg-accent/10 transition-colors duration-300">
+        Execute Connection
+      </a>
+    </section>
+
+  </main>
+
+  <footer class="border-t border-white/5 mt-auto bg-charcoal-900/50 backdrop-blur-sm">
+    <div class="max-w-6xl mx-auto px-6 py-8 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="text-gray-500 text-sm font-mono">
+        &copy; 2026 Algohary. System Online.
+      </div>
+      <div class="text-gray-600 text-xs font-mono flex items-center gap-2">
+        <svg class="w-4 h-4 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"></path></svg>
+        Arch Linux (btw)
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // --- Reveal Animation Observer ---
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.15
+    };
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+          observer.unobserve(entry.target); // Only animate once
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // --- FAANG-Tier Atmospheric Theme Engine (Dark Mode Exclusive) ---
+    const themes = [
+      { // 0: Dawn - Deep Cool Navy
+        pct: 0, 
+        bg: [9, 14, 23], bgCard: [15, 23, 42, 0.5], text: [241, 245, 249], muted: [148, 163, 184], 
+        accent: [56, 189, 248], glow: [56, 189, 248, 0.12]
+      },
+      { // 1: Midday - Sleek Dark IDE (Matte Gray)
+        pct: 0.25, 
+        bg: [24, 24, 27], bgCard: [31, 41, 55, 0.4], text: [243, 244, 246], muted: [156, 163, 175], 
+        accent: [129, 140, 248], glow: [129, 140, 248, 0.10]
+      },
+      { // 2: Afternoon - Warm Charcoal
+        pct: 0.50, 
+        bg: [28, 25, 23], bgCard: [41, 37, 36, 0.4], text: [250, 250, 249], muted: [168, 162, 158], 
+        accent: [217, 119, 6], glow: [217, 119, 6, 0.10]
+      },
+      { // 3: Sunset - Obsidian Plum
+        pct: 0.75, 
+        bg: [17, 12, 17], bgCard: [30, 20, 30, 0.5], text: [245, 243, 255], muted: [165, 180, 252], 
+        accent: [244, 63, 94], glow: [244, 63, 94, 0.12]
+      },
+      { // 4: Night - Pure Jet Black
+        pct: 1.0, 
+        bg: [5, 5, 5], bgCard: [15, 15, 15, 0.6], text: [229, 229, 229], muted: [115, 115, 115], 
+        accent: [0, 255, 204], glow: [0, 255, 204, 0.15]
+      }
+    ];
+
+    const lerp = (a, b, t) => a + (b - a) * t;
+    const lerpColor = (c1, c2, t) => c1.map((v, i) => lerp(v, c2[i], t));
+
+    const updateTheme = () => {
+      const scrollPct = Math.min(Math.max(window.scrollY / (document.documentElement.scrollHeight - window.innerHeight), 0), 1);
+      
+      // Find the two themes to interpolate between
+      let t1 = themes[0], t2 = themes[themes.length - 1];
+      for (let i = 0; i < themes.length - 1; i++) {
+        if (scrollPct >= themes[i].pct && scrollPct <= themes[i+1].pct) {
+          t1 = themes[i];
+          t2 = themes[i+1];
+          break;
+        }
+      }
+
+      const internalPct = (scrollPct - t1.pct) / (t2.pct - t1.pct || 1);
+      const root = document.documentElement;
+
+      const current = {
+        bg: lerpColor(t1.bg, t2.bg, internalPct),
+        bgCard: lerpColor(t1.bgCard, t2.bgCard, internalPct),
+        text: lerpColor(t1.text, t2.text, internalPct),
+        muted: lerpColor(t1.muted, t2.muted, internalPct),
+        accent: lerpColor(t1.accent, t2.accent, internalPct),
+        glow: lerpColor(t1.glow, t2.glow, internalPct)
+      };
+
+      const toRgb = (arr) => arr.length === 4 ? `rgba(${arr[0]}, ${arr[1]}, ${arr[2]}, ${arr[3]})` : `rgb(${arr[0]}, ${arr[1]}, ${arr[2]})`;
+
+      root.style.setProperty('--bg-main', toRgb(current.bg));
+      root.style.setProperty('--bg-card', toRgb(current.bgCard));
+      root.style.setProperty('--text-main', toRgb(current.text));
+      root.style.setProperty('--text-muted', toRgb(current.muted));
+      root.style.setProperty('--accent', toRgb(current.accent));
+      root.style.setProperty('--glow-color', toRgb(current.glow));
+      
+      // Update nav background brightness based on theme bg
+      document.querySelector('header').style.backgroundColor = `rgba(${current.bg[0]}, ${current.bg[1]}, ${current.bg[2]}, 0.8)`;
+    };
+
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          updateTheme();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+
+    updateTheme();
+
+    // --- Spotlight Card Hover Effect ---
+    document.querySelectorAll('.spotlight-card').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        card.style.setProperty('--mouse-x', `${x}px`);
+        card.style.setProperty('--mouse-y', `${y}px`);
+      });
+    });
+
+    // --- Interactive Terminal Logic ---
+    const termInput = document.getElementById('terminal-input');
+    const termOutput = document.getElementById('terminal-output');
+    const termBody = document.getElementById('terminal-body');
+
+    termInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        const cmd = this.value.trim().toLowerCase();
+        this.value = '';
+        
+        if (cmd === '') return;
+
+        // Echo command
+        const cmdLine = document.createElement('div');
+        cmdLine.className = 'mt-2 mb-1';
+        cmdLine.innerHTML = `<span class="text-accent">algohary@archlinux</span><span class="text-white">:</span><span class="text-blue-400">~</span>$ ${cmd}`;
+        termOutput.appendChild(cmdLine);
+        
+        let response = '';
+        
+        // Command Router
+        switch(cmd) {
+          case 'help':
+            response = `Available commands:<br>
+            <span class="text-accent">whoami</span>   - Print identity<br>
+            <span class="text-accent">skills</span>   - List core engineering stack<br>
+            <span class="text-accent">projects</span> - Jump directly to architecture<br>
+            <span class="text-accent">contact</span>  - Get communication protocol<br>
+            <span class="text-accent">clear</span>    - Clear terminal buffer`;
+            break;
+          case 'whoami':
+            response = `Mohamed Nabil Algohary<br>Engineering Leader & UI/UX Advocate<br>Architecting premium, high-performance systems.`;
+            break;
+          case 'skills':
+            response = `Node.js, React.js, Express.js, MongoDB, C++, Linux (Arch), System Design`;
+            break;
+          case 'projects':
+            response = `Initiating jump to projects...`;
+            setTimeout(() => document.getElementById('projects').scrollIntoView({ behavior: 'smooth' }), 400);
+            break;
+          case 'contact':
+            response = `Email: <a href="mailto:algoharyx@gmail.com" class="text-accent hover:underline">algoharyx@gmail.com</a><br>GitHub: <a href="https://github.com/algoharyx" target="_blank" class="text-accent hover:underline">algoharyx</a>`;
+            break;
+          case 'clear':
+            termOutput.innerHTML = '';
+            return;
+          case 'sudo':
+            response = `bash: sudo: This incident will be reported.`;
+            break;
+          default:
+            response = `bash: ${cmd}: command not found. Type 'help' for available commands.`;
+        }
+        
+        // Render response
+        if (response) {
+          const resLine = document.createElement('div');
+          resLine.className = 'text-gray-400 mb-4 pl-3 border-l-2 border-white/10';
+          resLine.innerHTML = response;
+          termOutput.appendChild(resLine);
+        }
+        
+        // Auto scroll to bottom
+        termBody.scrollTop = termBody.scrollHeight;
+      }
+    });
+  </script>
+</body>
+</html>
